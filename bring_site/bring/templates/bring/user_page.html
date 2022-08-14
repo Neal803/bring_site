@@ -1,0 +1,91 @@
+{% extends 'bring/base.html' %}
+{% load static %}
+
+{% block title %}BRING | {{ user }}{% endblock %}
+
+{% block content %}
+    <footer>
+        <div class="h-footer">
+            <h2 style="margin-top: 1.5%;">Мій профіль</h2>
+            <h6>Вітаємо Вас, {{ user.first_name }}!</h6>
+            <h6><a href="{% url 'bring:logout-user' %}">Вийти</a></h6>
+        </div>
+        <div class="user-profile">
+            <div class="user-avatar">
+                <img src="{{ user.avatar.url }}" class="user-avatar-img" style="width: 200px">
+                <br>
+                <input type="image" src="" alt="Змінити аватар" width="200" height="48">
+            </div>
+            <hr>
+            <div class="user-info">
+                <div class="user-name">Ім'я: {{ user.first_name }}</div>
+                <div class="user-last-name">Прізвище: {{ user.last_name }}</div>
+                <hr>
+                <div class="user-login">Логін: {{ user }}</div>
+                <div class="user-email">e-mail: {{ user.email }}</div>
+            </div>
+        </div>
+            <hr>
+            <div class="user-favorites">
+                <h6>Список товарів, які мені сподобались</h6>
+
+                <div class="stuffs-block">
+                    {% for stuff in user.favs.all %}
+                        {% if stuff.is_active %}
+                        <div class="stuff">
+
+                            {% if user.is_authenticated %}
+                                {% if stuff in user.favs.all %}
+                                    <a href="{% url 'bring:del-stuff-fan' stuff.id %}"><div class="favorite">
+                                    <img src="{% static 'bring/img/heart-yellow.png' %}" class="favorite-img">
+                                    </div></a>
+                                {% else %}
+                                    <a href="{% url 'bring:add-stuff-fan' stuff.id %}"><div class="favorite">
+                                    <img src="{% static 'bring/img/heart-border-yellow.png' %}" class="favorite-img">
+                                    </div></a>
+                                {% endif %}
+                            {% else %}
+                                <a href="{% url 'bring:add-stuff-fan' stuff.id %}"><div class="favorite">
+                                <img src="{% static 'bring/img/heart-border-yellow.png' %}" class="favorite-img">
+                                </div></a>
+                            {% endif %}
+
+                                <div class="stuff-img-block"><a href="{{ stuff.get_absolute_url }}"><img src="{{ stuff.picture.url }}" class="stuff-img"></div></a>
+                                <div class="stuff-title"><a href="{{ stuff.get_absolute_url }}">{{ stuff }}</a></div>
+                                {% if stuff.comments.count > 0.0 %}
+                                    <div class="stuff-rating">Рейтинг: {{ stuff.rating }} <a href="{{ stuff.get_absolute_url }}">(Відгуків: {{ stuff.comments.count }})</a></div>
+                                {% endif %}
+                                <div class="stuff-comment-now"><a href="{{ stuff.get_absolute_url }}">Залишити відгук</a></div>
+                                <div class="stuff-price">
+                                    {% for i in stuff.packing %}
+                                        {% if i.price > 0.0 %}
+                                            Ціна: {{ i.price }} грн. за {{ i.short_unit_packing }}({{ i.method_of_packing }}) <br>
+                                        {% endif %}
+                                    {% empty %}
+                                    <a href="#">Цену уточнять по телефону</a>
+                                    {% endfor %}
+                                </div>
+                        </div>
+                        {% endif %}
+                    {% endfor %}
+                </div>
+
+
+
+
+
+            </div>   
+            <hr>
+            <div class="user-comments">
+                <h6>Мої відгуки</h6>
+
+                {% for com in user.comments.all %}
+                    <p><a href="{% url 'bring:stuff' com.stuff.slug %}">{{ com.stuff }}</a> {{ com }} / Оцінка: {{ com.rating_vote }} {% if com.answer_by_admin %}/ (Відповідь: {{ com.answer_by_admin }}){% endif %}</p>
+                {% endfor %}
+
+            </div>
+        </div>
+        
+    </footer>
+
+{% endblock %}

@@ -1,0 +1,5 @@
+{% autoescape off %}
+
+<p>Для подтверждения пароля перейти по ссылке</p>
+http://{{ domain }}{% url 'bring:verify-email' uidb64=uid token=token %}
+{% endautoescape %}

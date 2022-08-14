@@ -1,0 +1,73 @@
+{% extends 'bring/base.html' %}
+{% load static %}
+
+{% block title %}BRING | {{ stuff }}{% endblock %}
+
+{% block content %}
+    <footer>
+        <div class="h-footer">
+            <h1 style="margin-top: 1.5%;">{{ stuff }}</h1>
+        </div>
+    
+        <div class="stuff-block">
+            <div class="stuff-block-img">
+                <img src="{{ stuff.picture.url }}" class="stuff-img" style="width: 400px">
+            </div>
+            <div class="stuff-info">
+                <div class="stuff-description">{{ stuff.description }}</div>
+            </div>
+        </div>
+        <hr>
+        <div class="rating">
+
+            <div class="stuff-price">
+                {% for i in stuff.packing %}
+                    {% if i.price > 0.0 %}
+                        Ціна: {{ i.price }} грн. за {{ i.short_unit_packing }}({{ i.method_of_packing }}) <br>
+                    {% endif %}
+                {% empty %}
+                <a href="#">Ціну уточнювати за телефоном</a>
+                {% endfor %}
+            </div>
+            <hr>
+            <div class="order-now">Замовити зараз | Додати до кошику</div>
+            <hr>
+            <div class="stuff-rating">Рейтинг: {{ stuff.rating }} Відгуків: {{ stuff.comments.count }}</div>
+            <hr></div>
+
+            {% if user.is_authenticated %}
+
+            <form method="post" action="{% url 'bring:add-comment' stuff.slug %}">
+                {% csrf_token %}
+                
+                Коментар: <input type="text" name="comment_text">
+                Оцінка: <input type="number" name="rating_vote">
+    
+                <button type="submit">Залишити коментар</button>
+            </form>
+        
+            {% endif %}
+
+            <br>
+
+
+            <div class="comment-form">
+
+            {% for comment in stuff.comments.all|dictsortreversed:'pub_comment_date' %}
+          
+                <p style="font-weight: bold;">{{ comment.author.first_name }}{% if comment.rating_vote %} оцінив пропозицію на {{ comment.rating_vote }}{% endif %}:</p>
+                <p style="font-style: italic; font-weight: bold;">{{ comment }}</p>
+                {% if comment.answer_by_admin %} <p>Відповідь адміністратора: {{ comment.answer_by_admin }}</p> {% endif %}
+
+                <br>
+            {% endfor %}
+
+            </div>
+
+
+                    
+        
+
+    </footer>
+
+{% endblock %}

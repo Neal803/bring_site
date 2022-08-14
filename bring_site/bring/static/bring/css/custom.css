@@ -1,0 +1,403 @@
+
+
+/* скрываем чекбокс */
+#menu__toggle {
+  opacity: 0;
+}
+/* стилизуем кнопку */
+.menu__btn {
+  display: flex; /* используем flex для центрирования содержимого */
+  align-items: center;  /* центрируем содержимое кнопки */
+  position: fixed;
+  top: 18px;
+  left: 25px;
+  width: 25px;
+  height: 20px;
+  cursor: pointer;
+  z-index: 1;
+}
+/* добавляем "гамбургер" */
+.menu__btn > span,
+.menu__btn > span::before,
+.menu__btn > span::after {
+  display: block;
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  background-color: #616161;
+}
+.menu__btn > span::before {
+  content: '';
+  top: -8px;
+}
+.menu__btn > span::after {
+  content: '';
+  top: 8px;
+}
+/* контейнер меню */
+.menu__box {
+  display: block;
+  position: fixed;
+  visibility: hidden;
+  top: 0;
+  left: -100%;
+  width: 230px;
+  height: 100%;
+  margin: 0;
+  padding: 64px 0;
+  list-style: none;
+  text-align: center;
+  background-color: #ECEFF1;
+  box-shadow: 1px 0px 6px rgba(0, 0, 0, .2);
+}
+
+.menu__box__logo {
+  display: block;
+  position: fixed;
+  visibility: hidden;
+  top: 0;
+  left: -100%;
+  width: 230px;
+  height: 56px;
+  margin: 0;
+  padding: 0px 0px;
+  list-style: none;
+  text-align: left;
+  background-color: #ECEFF1;
+  box-shadow: 0px 0px 1px rgba(0, 0, 0, 1);
+}
+
+
+/* элементы меню */
+.menu__item {
+  display: block;
+  padding: 12px 24px;
+  color: #333;
+  font-family: Arial, serif;
+  font-size: 16px;
+  font-weight: normal;
+  text-decoration: none;
+}
+.menu__item__logo {
+  display: block;
+  padding: 0px 0px;
+  color: #333;
+  font-size: 20px;
+  margin-left: 33px;
+  margin-top: 8px;
+}
+
+
+.menu__item:hover {
+  background-color: #CFD8DC;
+}
+#menu__toggle:checked ~ .menu__btn > span {
+  transform: rotate(45deg);
+}
+#menu__toggle:checked ~ .menu__btn > span::before {
+  top: 0;
+  transform: rotate(0);
+}
+#menu__toggle:checked ~ .menu__btn > span::after {
+  top: 0;
+  transform: rotate(90deg);
+}
+#menu__toggle:checked ~ .menu__box {
+  visibility: visible;
+  left: 0;
+}
+#menu__toggle:checked ~ .menu__box__logo {
+  visibility: visible;
+  left: 0;
+}
+.menu__btn > span,
+.menu__btn > span::before,
+.menu__btn > span::after {
+  transition-duration: .25s;
+}
+.menu__box {
+  transition-duration: .25s;
+}
+.menu__box__logo {
+  transition-duration: .25s;
+}
+.menu__item {
+  transition-duration: .25s;
+}
+
+
+.header{
+    --paper-input-container-input-align: baseline;
+    display: block;
+    width: 100%;
+    background: #F3EBDD;
+    position: fixed;
+    z-index: 100;
+    top: 0;
+ }
+
+.header .head{
+    height: 56px;
+    padding: 0 16px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, .5);
+    height: innerit;
+}
+
+.logo {
+    margin-left: 43px;
+    height: 40px;
+}
+
+.start li_head_start {
+	display: inline-block;
+}
+
+.center {
+  flex: 1;
+  margin-left: 11.3%;
+  margin-right: 10%;
+}
+
+.clear {
+    height: 56px;
+}
+
+.bascket {
+    height: 38px;
+    padding: 0 10px 0 10px;
+}
+.bascket:hover {
+    height: 48px;
+    padding: 0 5px 0 5px;
+}
+.account {
+    height: 30px;
+    padding: 0 10px 0 10px
+}
+.account:hover {
+    height: 40px;
+    padding: 0 5px 0 5px;
+}
+.favorites {
+    height: 30px;
+    padding: 0 10px 0 5px
+}
+.favorites:hover {
+    height: 40px;
+    padding: 0 5px 0 0px;
+}
+
+.search {
+	/* устанавливаем необходимую ширину формы в зависимости от дизайна
+	** форма без проблем растягивается */
+	width: 100%;
+
+
+	/* кнопку отправки будем позиционировать абсолютно,
+	** поэтому необходимо это свойство */
+	position: relative;
+}
+
+.search input {
+	/* отключаем бордюры у инпутов */
+	border: none;
+}
+
+/* стили для поля ввода */
+.search .input {
+	/* растягиваем поле ввода на всю ширину формы */
+	width: 100%;
+
+	/* за счет верхнего (8px) и нижнего (9px) внутренних отступов
+	** регулируем высоту формы
+	** внутренний отступ справа (37px) делаем больше левого,
+	** т.к. там будет размещена кнопка отправки	*/
+	padding: 8px 37px 9px 15px;
+
+	/* чтобы ширина поля ввода (100%) включала в себя внутренние отступы */
+	-moz-box-sizing: border-box;
+	box-sizing: border-box;
+
+	/* добавляем внутренние тени */
+	box-shadow: inset 0 0 5px rgba(0,0,0,0.1), inset 0 1px 2px rgba(0,0,0,0.3);
+
+	/* закругляем углы
+	border-radius: 20px;*/
+
+	background: #EEE;
+	font: 13px Arial, sans-serif;
+	color: #555;
+	outline: none;
+}
+
+/* меняем оформление поля ввода при фокусе */
+.search .input:focus {
+	box-shadow: inset 0 0 5px rgba(0,0,0,0.2), inset 0 1px 2px rgba(0,0,0,0.4);
+	background: #E8E8E8;
+	color: #333;
+}
+
+/* оформляем кнопку отправки */
+.search .submit {
+	/* позиционируем кнопку абсолютно от правого края формы */
+	position: absolute;
+	top: 0;
+	right: 0;
+
+	width: 37px;
+
+	/* растягиваем кнопку на всю высоту формы */
+	height: 100%;
+
+	cursor: pointer;
+	background: url(https://lh4.googleusercontent.com/-b-5aBxcxarY/UAfFW9lVyjI/AAAAAAAABUg/gQtEXuPuIds/s13/go.png) 50% no-repeat;
+
+	/* добавляем прозрачность кнопке отправки */
+	opacity: 0.5;
+}
+
+/* при наведении курсора меняем прозрачность кнопки отправки */
+.search .submit:hover {
+	opacity: 0.8;
+}
+
+/* данное свойство необходимо для того, чтобы в браузерах
+** Chrome и Safari можно было стилизовать инпуты */
+input[type="search"] {
+	-webkit-appearance: none;
+}
+
+
+body {
+    background: #F3F7FE;
+}
+footer {
+    margin-left: 2.5%;
+    margin-right: 2.5%;
+}
+.h-footer{
+    text-align: center;
+    line-height: 1;
+    font-family:  Arial, serif;
+}
+
+.stuffs-block {
+    display: grid;
+    grid-template-columns: repeat(5, 19.2%);
+    grid-template-rows: repeat(10, auto);
+    grid-column-gap: 1%;
+    grid-row-gap: 2%;
+    margin-top: 2%;
+    font-family: Arial, sans-serif;
+    font-weight: normal;
+}
+
+.stuff {
+    background: #EEF2F7;
+    padding: 4%;
+    border-radius: 10px;
+}
+.stuff:hover {
+    box-shadow: 0 0 10px black;
+}
+
+.stuff .stuff-img-block {
+    background-size: cover;
+}
+
+.stuff-img-block .stuff-img {
+    height: 100%;
+    width: 100%;
+    border-radius: 8px;
+}
+
+.favorite{
+    position: relative;
+}
+
+.favorite .favorite-img {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    right: 0px;
+    margin: 2%;
+    padding: 1%;
+}
+.favorite .favorite-img:hover {
+    border: 0px solid black;
+    position: absolute;
+    right: 0px;
+    margin: 2%;
+    padding: 1%;
+    border-radius: 6px;
+    background-color: rgba(0, 0, 0, 0.2);
+}
+
+.user-profile {
+    margin-left: auto;
+    margin-right: auto;
+    width: 20em;
+}
+.count-favs {
+    position: absolute;
+    vertical-align: middle;
+    right: 154px;
+    top: 15px;
+    text-align: left;
+}
+
+/* Для мобильной версии*/
+@media screen and (max-width: 785px){
+    .center{
+        display: none;
+    }
+    .search .input {
+        border-radius: 0px;
+    }
+    .header .head {
+        box-shadow: 0 0px 0px rgba(0, 0, 0, 0);
+    }
+    .center-mobile{
+        box-shadow: 0 4px 10px rgba(0, 0, 0, .5);
+        position: fixed;
+        width: 100%;
+        top: 56px;
+    }
+    .clear-mobile {
+        height: 32px;
+    }
+    .stuffs-block {
+        grid-template-columns: repeat(2, 49%);
+        grid-column-gap: 2%;
+    }
+}
+
+/* Промежуточные */
+@media screen and (min-width: 785px) and (max-width: 990px){
+    .stuffs-block {
+        grid-template-columns: repeat(3, 31.9%);
+        grid-column-gap: 2%;
+    }
+}
+@media screen and (min-width: 990px) and (max-width: 1200px){
+    .stuffs-block {
+        grid-template-columns: repeat(4, 24.25%);
+        grid-column-gap: 1%;
+    }
+}
+/* Для ПК версии */
+@media screen and (min-width: 785px){
+    .center-mobile{
+        display: none;
+    }
+    .clear-mobile{
+        display: none;
+    }
+    .search .input {
+        border-radius: 20px;
+    }
+}

@@ -1,0 +1,38 @@
+{% extends 'bring/base.html' %}
+{% load static %}
+
+{% block title %}BRING | Відгуки{% endblock %}
+
+{% block content %}
+    <footer>
+        <div class="h-footer">
+            <h1 style="margin-top: 1.5%;">Відгуки</h1>
+        </div>
+        
+       
+        <div class="comment-form">
+            
+            {% for obj in objects %}
+                {% if obj.comments.all %}
+                <p><a href="{% url 'bring:stuff' obj.slug %}">{{ obj }}</a></p>
+                {% for comment in obj.comments.all|dictsortreversed:'pub_comment_date' %}
+                <p style="font-weight: bold;">{% if comment.author.first_name %}{{ comment.author.first_name }}{% else %}({{ comment.author }}){% endif %} оцінив пропозицію на {{ comment.rating_vote }}:</p>
+                <p style="font-style: italic; font-weight: bold;">{{ comment }}</p>
+                {% if comment.answer_by_admin %} <p>Відповідь адміністратора: {{ comment.answer_by_admin }}</p> {% endif %}
+                <br>
+                {% endfor %}
+                {% endif %}
+
+                
+            {% endfor %}
+
+            </div>
+
+
+        
+
+        
+        
+    </footer>
+
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends 'bring/base.html' %}
+{% load static %}
+
+{% block title %}BRING | Реєстрація{% endblock %}
+
+{% block content %}
+    <footer>
+        <div class="h-footer">
+            <h2 style="margin-top: 1.5%;">Реєстрація</h2>
+        </div>
+        
+        <form method="post" class="register">
+            {% csrf_token %}
+            
+            {% for f in form %}
+                <p><label for="{{ f.id_for_label }}" class="form-label">{{ f.label }}: </label>{{ f }}</p>
+                <div class="form-error">{{ f.errors }}</div>
+            {% endfor %}
+
+            <button type="submit">Зареєструватись</button>
+        </form>
+
+        
+        
+    </footer>
+
+{% endblock %}

@@ -1,0 +1,14 @@
+{% extends 'bring/base.html' %}
+{% load static %}
+
+{% block title %}BRING | Сброс пароля{% endblock %}
+
+{% block content %}
+
+<form action="{ url 'bring:password_reset '}" method="post">
+    {{ form }}
+    {% csrf_token %}
+    <button type="submit">Submit</button>
+</form>
+
+{% endblock %}

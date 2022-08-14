@@ -1,0 +1,62 @@
+{% extends 'bring/base.html' %}
+{% load static %}
+
+{% block title %}BRING{% endblock %}
+
+{% block content %}
+    <footer>
+        <div class="h-footer">
+            <h1 style="margin-top: 1.5%;">Мені сподобались ці товари</h1>
+        </div>
+    
+
+        <div class="stuffs-block">
+            {% for stuff in stuffs %}
+                <div class="stuff" >
+
+                    {% if user.is_authenticated %}
+                        {% if stuff in user.favs.all %}
+                            <a href="{% url 'bring:del-stuff-fan' stuff.id %}"><div class="favorite">
+                            <img src="{% static 'bring/img/heart-yellow.png' %}" class="favorite-img">
+                            </div></a>
+                        {% else %}
+                            <a href="{% url 'bring:add-stuff-fan' stuff.id %}"><div class="favorite">
+                            <img src="{% static 'bring/img/heart-border-yellow.png' %}" class="favorite-img">
+                            </div></a>
+                        {% endif %}
+                    {% else %}
+                        <a href="{% url 'bring:add-stuff-fan' stuff.id %}"><div class="favorite">
+                        <img src="{% static 'bring/img/heart-border-yellow.png' %}" class="favorite-img">
+                        </div></a>
+                    {% endif %}
+
+                        <div class="stuff-img-block"><a href="{{ stuff.get_absolute_url }}"><img src="{{ stuff.picture.url }}" class="stuff-img"></a></div>
+                        <div class="stuff-title"><a href="{{ stuff.get_absolute_url }}">{{ stuff }}</a></div>
+                        {% if stuff.comments.count > 0.0 %}
+                            <div class="stuff-rating">Рейтинг: {{ stuff.rating }} <a href="{{ stuff.get_absolute_url }}">(Відгуків: {{ stuff.comments.count }})</a></div>
+                        {% endif %}
+                        <div class="stuff-comment-now"><a href="{{ stuff.get_absolute_url }}">Залишити відгук</a></div>
+                        <div class="stuff-price">
+                            {% for i in stuff.packing %}
+                                {% if i.price > 0.0 %}
+                                    Ціна: {{ i.price }} грн. за {{ i.short_unit_packing }}({{ i.method_of_packing }}) <br>
+                                {% endif %}
+                            {% empty %}
+                            <a href="#">Цену уточнять по телефону</a>
+                            {% endfor %}
+                        </div>
+                        <div class="order-now">Замовити зараз | Додати до кошику</div>
+                </div>
+            {% endfor %}
+        </div>
+
+        {% if stuffs.count == 0 %}
+        <div class="h-footer">
+            <h2>Нажаль, зараз немає акційних товарів та пропозицій :(</h2>
+            <h6><a href="{% url 'bring:index' %}">Перейти на Головну сторінку</a></h6>
+        </div>
+        {% endif %}
+
+    </footer>
+
+{% endblock %}
