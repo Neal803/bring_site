@@ -15,19 +15,18 @@
                 <div class="stuff">
 
                     {% if user.is_authenticated %}
+                        <form action="{% url 'bring:stuff-fan' stuff.id %}" method="POST" id="favorite{{ stuff.id }}">
+                        {% csrf_token %}
                         {% if stuff in user.favs.all %}
-                            <a href="{% url 'bring:del-stuff-fan' stuff.id %}"><div class="favorite">
-                            <img src="{% static 'bring/img/heart-yellow.png' %}" class="favorite-img">
-                            </div></a>
+                            <div class="favorite"><img src="{% static 'bring/img/heart-yellow.png' %}" class="favorite-img"></div>
                         {% else %}
-                            <a href="{% url 'bring:add-stuff-fan' stuff.id %}"><div class="favorite">
-                            <img src="{% static 'bring/img/heart-border-yellow.png' %}" class="favorite-img">
-                            </div></a>
+                            <div class="favorite"><img src="{% static 'bring/img/heart-border-yellow.png' %}" class="favorite-img"></div>
                         {% endif %}
+                        </form>
                     {% else %}
-                        <a href="{% url 'bring:add-stuff-fan' stuff.id %}"><div class="favorite">
+                    <a data-bs-toggle="modal" data-bs-target="#login-ajax"><div class="favorite">
                         <img src="{% static 'bring/img/heart-border-yellow.png' %}" class="favorite-img">
-                        </div></a>
+                    </div></a>
                     {% endif %}
 
                         <div class="stuff-img-block"><a href="{{ stuff.get_absolute_url }}"><img src="{{ stuff.picture.url }}" class="stuff-img"></a></div>

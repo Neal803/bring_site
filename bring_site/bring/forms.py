@@ -1,4 +1,4 @@
-from django.contrib.auth import authenticate
+from django.contrib.auth import authenticate, password_validation
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
 from django.forms import Form, Textarea, CharField
 from django.core.exceptions import ValidationError
@@ -66,6 +66,42 @@ class AuthenticationAjaxForm(forms.Form):
             "class": "form-control",
         }),
     )
+
+
+class RegistrationAjaxForm(UserCreationForm):
+    # username = forms.CharField(label='Логін', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    email = forms.EmailField(
+        label=_("Email"),
+        max_length=254,
+        widget=forms.EmailInput(attrs={
+            "autocomplete": "email",
+            "class": "form-control",
+        }),
+    )
+    first_name = forms.CharField(
+        label=_("Ім\'я"),
+        max_length=254,
+        widget=forms.TextInput(attrs={
+            "autocomplete": "name",
+            "class": "form-control",
+        })
+    )
+    password1 = forms.CharField(
+        label=_("Password"),
+        strip=False,
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
+        help_text=password_validation.password_validators_help_text_html(),
+    )
+    password2 = forms.CharField(
+        label=_("Password confirmation"),
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
+        strip=False,
+        help_text=_("Enter the same password as before, for verification."),
+    )
+
+    class Meta:
+        model = CustomUser
+        fields = ['email', 'first_name', 'password1', 'password2']
 
 
 class CommentForm(Form):

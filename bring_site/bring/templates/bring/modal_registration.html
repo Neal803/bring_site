@@ -1,23 +1,23 @@
-<div class="modal fade" id="login-ajax" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="registration-ajax" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Увійти</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Реєстрація</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <div class="alert alert-danger d-none" role="alert"></div>
 
-      <form action="{% url 'bring:login-ajax' %}" method="POST" id="form_ajax_login">
+      <form action="{% url 'bring:registration-ajax' %}" method="POST" id="form_ajax_registration">
         <div class="modal-body">
 
-          {{ login_ajax }}
+          {{ registration_ajax }}
           {% csrf_token %}
 
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Вход</button>
+          <button type="submit" class="btn btn-primary">Зареєструвати</button>
         </div>
       </form>
 

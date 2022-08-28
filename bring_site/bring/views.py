@@ -8,7 +8,7 @@ from django.utils.http import urlsafe_base64_decode
 from django.views import View
 from django.views.generic import ListView, DetailView, CreateView, TemplateView
 from django.urls import reverse_lazy
-from .forms import RegisterUserForm, LoginUserForm, CommentForm
+from .forms import RegisterUserForm, LoginUserForm, CommentForm, RegistrationAjaxForm
 from .models import *
 from .utils import send_email_for_verify
 from django.core.exceptions import ValidationError
@@ -129,11 +129,9 @@ class UserPage(LoginRequiredMixin, TemplateView):
 
 
 class LoginAjaxView(View):
-
     def post(self, request):
         email = request.POST.get('email')
         password = request.POST.get('password')
-        print(email, password)
 
         if email and password:
             user = authenticate(email=email, password=password)
@@ -148,6 +146,26 @@ class LoginAjaxView(View):
             data={'error': 'Введите логин и пароль'},
             status=400
         )
+
+
+class RegistrationAjaxView(View):
+    def post(self, request):
+        email = request.POST.get('email')
+        first_name = request.POST.get('first_name')
+        password1 = request.POST.get('password1')
+        password2 = request.POST.get('password2')
+        if email and first_name and password1 and password2 and password1 == password2:
+            CustomUser(username='user', email=email, first_name=first_name, password=password1).save()
+            print(email, password1)
+            user = authenticate(email=email, password=password1)
+            print(email, password1)
+            send_email_for_verify(request, user)
+            print(email, password1)
+            return JsonResponse(data={}, status=201)
+        else:
+            return JsonResponse(data={'error': 'Ошибка'}, status=400)
+
+
 
 
 def logout_user(request):
@@ -238,9 +256,23 @@ def del_fav_stuff(request, stuff_id):
         fan.save()
     return redirect(request.META.get('HTTP_REFERER'))
 
-# API
 
-
-# class StuffListApiViews(generics.ListAPIView):
-#     serializer_class = StuffListSerializer
-#     queryset = Stuff.objects.filter(is_active=True).order_by('priority')
+def fav_stuff(request, stuff_id):
+    stuff = Stuff.objects.get(pk=stuff_id)
+    fan = request.user
+    if stuff not in fan.favs.all():
+        fan.favs.add(stuff)
+        fan.save()
+        return JsonResponse(
+            data={'msg': 'Добавлено в избранное'},
+            status=201
+        )
+    elif stuff in fan.favs.all():
+        fan.favs.remove(stuff)
+        fan.save()
+        return JsonResponse(
+            data={'msg': 'Удалено из избранного'},
+            status=201
+        )
+    else:
+        return redirect('bring:login-page')
