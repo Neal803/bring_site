@@ -20,19 +20,3 @@ def send_email_for_verify(request, user):
     )
     email = EmailMessage('Verify email', message, to=[user.email])
     email.send()
-
-
-def send_email_for_verify_user(request, user):
-    current_site = get_current_site(request)
-    context = {
-        'user': user,
-        'domain': current_site.domain,
-        'uid': urlsafe_base64_encode(force_bytes(user.pk)),
-        'token': token_generator.make_token(user),
-    }
-    message = render_to_string(
-        'bring/verify_email.html',
-        context=context
-    )
-    email = EmailMessage('Verify email', message, to=[user.email])
-    email.send()

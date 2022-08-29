@@ -149,23 +149,35 @@ class LoginAjaxView(View):
 
 
 class RegistrationAjaxView(View):
+
     def post(self, request):
-        email = request.POST.get('email')
+        email = request.POST.get('email_reg')
         first_name = request.POST.get('first_name')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
-        if email and first_name and password1 and password2 and password1 == password2:
-            CustomUser(username='user', email=email, first_name=first_name, password=password1).save()
-            print(email, password1)
+        username = f'user_{"_".join(first_name.split())}'
+        if email and first_name and password1 and password2:
+            try:
+                if CustomUser.objects.get(email=email):
+                    return JsonResponse(data={'error': 'Пользователь уже существует'}, status=400)
+            except:
+                pass
+            if len(password1) < 8:
+                return JsonResponse(data={'error': 'Пароль слишком короткий'}, status=400)
+            if password1.isdigit():
+                return JsonResponse(data={'error': 'Пароль не должен состоять только из цифр'}, status=400)
+            if password1 and password1 != password2:
+                return JsonResponse(data={'error': 'Пароль должен быть одиннаковым'}, status=400)
+            new_user = CustomUser(username=username, email=email, first_name=first_name)
+            new_user.set_password(password1)
+            new_user.save()
             user = authenticate(email=email, password=password1)
-            print(email, password1)
-            send_email_for_verify(request, user)
-            print(email, password1)
+            if user:
+                send_email_for_verify(request, user)
+                login(request, user)
             return JsonResponse(data={}, status=201)
         else:
             return JsonResponse(data={'error': 'Ошибка'}, status=400)
-
-
 
 
 def logout_user(request):
@@ -175,6 +187,7 @@ def logout_user(request):
 
 class Register(View):
     template_name = 'bring/registration_page.html'
+
     # success_url = '/bring/user/'
 
     def get(self, request):

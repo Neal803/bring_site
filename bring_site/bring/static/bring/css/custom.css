@@ -366,6 +366,7 @@ footer {
         position: fixed;
         width: 100%;
         top: 56px;
+        z-index: 100;
     }
     .clear-mobile {
         height: 32px;

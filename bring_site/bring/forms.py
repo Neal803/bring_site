@@ -1,6 +1,6 @@
 from django.contrib.auth import authenticate, password_validation
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm, AuthenticationForm
-from django.forms import Form, Textarea, CharField
+from django.forms import Form
 from django.core.exceptions import ValidationError
 
 from django import forms
@@ -12,15 +12,14 @@ from django.utils.translation import gettext_lazy as _
 
 class RegisterUserForm(UserCreationForm):
     # username = forms.CharField(label='Логін', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    email = forms.EmailField(label='e-mail', widget=forms.TextInput(attrs={'class': 'form-input'}))
+    email_reg = forms.EmailField(label='e-mail', widget=forms.TextInput(attrs={'class': 'form-input'}))
     first_name = forms.CharField(label='Ім\'я', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    last_name = forms.CharField(label='Прізвище', widget=forms.TextInput(attrs={'class': 'form-input'}))
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     password2 = forms.CharField(label='Повтор Паролю', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
     class Meta:
         model = CustomUser
-        fields = ['email', 'first_name', 'last_name', 'password1', 'password2']
+        fields = ['email_reg', 'first_name',  'password1', 'password2']
 
 
 class CustomUserChangeForm(UserChangeForm):
@@ -70,7 +69,7 @@ class AuthenticationAjaxForm(forms.Form):
 
 class RegistrationAjaxForm(UserCreationForm):
     # username = forms.CharField(label='Логін', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    email = forms.EmailField(
+    email_reg = forms.EmailField(
         label=_("Email"),
         max_length=254,
         widget=forms.EmailInput(attrs={
@@ -89,19 +88,19 @@ class RegistrationAjaxForm(UserCreationForm):
     password1 = forms.CharField(
         label=_("Password"),
         strip=False,
-        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "form-control"}),
         help_text=password_validation.password_validators_help_text_html(),
     )
     password2 = forms.CharField(
         label=_("Password confirmation"),
-        widget=forms.PasswordInput(attrs={"autocomplete": "new-password"}),
+        widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "form-control"}),
         strip=False,
         help_text=_("Enter the same password as before, for verification."),
     )
 
     class Meta:
         model = CustomUser
-        fields = ['email', 'first_name', 'password1', 'password2']
+        fields = ('email_reg', 'first_name', 'password1', 'password2')
 
 
 class CommentForm(Form):

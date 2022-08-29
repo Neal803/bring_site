@@ -1,4 +1,4 @@
-from .forms import AuthenticationAjaxForm, RegistrationAjaxForm
+from .forms import AuthenticationAjaxForm, RegistrationAjaxForm, RegisterUserForm
 from .models import Category
 
 
