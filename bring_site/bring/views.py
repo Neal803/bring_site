@@ -153,6 +153,7 @@ class RegistrationAjaxView(View):
     def post(self, request):
         email = request.POST.get('email_reg')
         first_name = request.POST.get('first_name')
+        communication = request.POST.get('communication')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
         username = f'user_{"_".join(first_name.split())}'
@@ -168,7 +169,7 @@ class RegistrationAjaxView(View):
                 return JsonResponse(data={'error': 'Пароль не должен состоять только из цифр'}, status=400)
             if password1 and password1 != password2:
                 return JsonResponse(data={'error': 'Пароль должен быть одиннаковым'}, status=400)
-            new_user = CustomUser(username=username, email=email, first_name=first_name)
+            new_user = CustomUser(username=username, email=email, first_name=first_name, communication=communication)
             new_user.set_password(password1)
             new_user.save()
             user = authenticate(email=email, password=password1)

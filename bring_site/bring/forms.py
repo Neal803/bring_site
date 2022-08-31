@@ -4,10 +4,22 @@ from django.forms import Form
 from django.core.exceptions import ValidationError
 
 from django import forms
+from django.utils.html import format_html_join, format_html
 
 from .models import CustomUser, Comment
 from .utils import send_email_for_verify
 from django.utils.translation import gettext_lazy as _
+
+
+def _password_validators_help_text_html():
+    help_texts = [
+        'Пароль має містити не меньше 8 символів',
+        'Пароль не може бути лише з цифр'
+    ]
+    help_items = format_html_join(
+        "", "<li>{}</li>", ((help_text,) for help_text in help_texts)
+    )
+    return format_html("<ul>{}</ul>", help_items) if help_items else ""
 
 
 class RegisterUserForm(UserCreationForm):
@@ -78,29 +90,40 @@ class RegistrationAjaxForm(UserCreationForm):
         }),
     )
     first_name = forms.CharField(
-        label=_("Ім\'я"),
+        label=_("Ім'я"),
         max_length=254,
         widget=forms.TextInput(attrs={
             "autocomplete": "name",
             "class": "form-control",
         })
     )
+    communication = forms.CharField(
+        label=_("Спосіб зв'язку (Номер телефону, Telegram, Viber тощо)"),
+        max_length=254,
+        widget=forms.TextInput(attrs={
+            "autocomplete": "name",
+            "class": "form-control",
+        }),
+    )
     password1 = forms.CharField(
-        label=_("Password"),
+        label=_("Пароль"),
         strip=False,
         widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "form-control"}),
-        help_text=password_validation.password_validators_help_text_html(),
+        help_text=_password_validators_help_text_html(),
     )
     password2 = forms.CharField(
-        label=_("Password confirmation"),
+        label=_("Підтвердження паролю"),
         widget=forms.PasswordInput(attrs={"autocomplete": "new-password", "class": "form-control"}),
         strip=False,
-        help_text=_("Enter the same password as before, for verification."),
     )
 
     class Meta:
         model = CustomUser
-        fields = ('email_reg', 'first_name', 'password1', 'password2')
+        fields = ('email_reg', 'first_name', 'communication', 'password1', 'password2')
+
+    def __init__(self, *args, **kwargs):
+        super(RegistrationAjaxForm, self).__init__(*args, **kwargs)
+        self.fields['communication'].required = False
 
 
 class CommentForm(Form):

@@ -93,9 +93,19 @@ class Category(models.Model):
 class CustomUser(AbstractUser):
     email = models.EmailField(_("email address"), unique=True)
     username = models.CharField(_("username"), max_length=150, unique=False)
+    communication = models.CharField('Способ связи', max_length=256, blank=True, unique=False)
     email_verify = models.BooleanField(default=False)
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
+
+    def init_communication(self):
+        if self.communication == '':
+            return 'Не вказано'
+
+    def save(self, *args, **kwargs):
+        if self.communication == '' or self.communication is None:
+            self.communication = 'Не вказано'
+        super(CustomUser, self).save(*args, **kwargs)
 
 
 class Comment(models.Model):
