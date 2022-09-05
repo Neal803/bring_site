@@ -6,7 +6,7 @@
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
-      <div class="alert alert-danger d-none" role="alert"></div>
+      <div class="alert alert-danger-reg d-none" role="alert"></div>
 
       <form action="{% url 'bring:registration-ajax' %}" method="POST" id="form_ajax_registration">
         <div class="modal-body">
@@ -14,6 +14,9 @@
           {{ registration_ajax }}
           {% csrf_token %}
 
+        </div>
+        <div class="href-modal">
+          <a class="href-modal-a" data-bs-toggle="modal" data-bs-target="#login-ajax" data-bs-dismiss="modal">В мене є аккаунт</a>
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

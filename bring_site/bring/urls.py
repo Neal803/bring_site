@@ -27,6 +27,7 @@ urlpatterns = [
 
     path('login_ajax/', LoginAjaxView.as_view(), name='login-ajax'),
     path('registration_ajax/', RegistrationAjaxView.as_view(), name='registration-ajax'),
+    path('contacts_ajax/', TemplateView.as_view(template_name='bring/modal-contacts.html'), name='contacts-ajax'),
 
     path('password_reset', PasswordResetView.as_view(template_name='bring/password_reset_form.html'), name='password_reset'),
     # path('password_reset/done', PasswordResetDoneView.as_view(template_name='bring/passwort_reset_done.html'), name='password_reset_done'),

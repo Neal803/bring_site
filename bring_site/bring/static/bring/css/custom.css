@@ -1,4 +1,65 @@
+.auth-reg {
+    display: flex;
+    flex-direction: row;
+    height: 58px;
+}
+.auth-reg-left{
+    padding-left: 0.5rem;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.auth-reg-right{
+    padding: 0.5rem;
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 170px;
+}
+.href-auth{
+    color: black;
+    text-decoration: none;
+}
+.user-name {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.user-email {
+    font-size: 12px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
 
+.contacts {
+    display: flex;
+    flex-direction: column;
+    padding: 1.5rem;
+}
+.contacts .contacts-top{
+    display: grid;
+    grid-template-columns: repeat(2, auto);
+    font-size: 30px;
+    margin: auto;
+}
+.href-contacts {
+    text-decoration: none;
+    color: black;
+    margin: auto;
+}
+
+.contacts .contacts-bottom{
+    flex-direction: row;
+    margin: auto;
+    padding-top: 1rem;
+}
+.contacts-top-img{
+    float: right;
+    height: 30px;
+    margin-right: 6px;
+    margin-top: 7px;
+}
+.contacts-bottom-img{
+    height: 60px;
+    margin: 5px;
+}
 
 /* скрываем чекбокс */
 #menu__toggle {
@@ -44,7 +105,7 @@
   width: 230px;
   height: 100%;
   margin: 0;
-  padding: 64px 0;
+  padding: 56px 0;
   list-style: none;
   text-align: center;
   background-color: #ECEFF1;
@@ -178,10 +239,6 @@
     height: 30px;
     padding: 0 10px 0 10px
 }
-.account:hover {
-    height: 40px;
-    padding: 0 5px 0 5px;
-}
 .favorites {
     height: 30px;
     padding: 0 10px 0 5px
@@ -313,7 +370,7 @@ footer {
 }
 
 .stuff {
-    background: #EEF2F7;
+    background: #e6e9ed;
     padding: 4%;
     border-radius: 10px;
 }
@@ -351,6 +408,7 @@ footer {
     padding: 1%;
     border-radius: 6px;
     background-color: rgba(0, 0, 0, 0.2);
+    cursor: pointer;
 }
 
 .user-profile {
@@ -367,6 +425,37 @@ footer {
 }
 
 /* Для мобильной версии*/
+@media screen and (max-width: 375px){
+    .logo-block {
+        display: none;
+    }
+    .contacts .contacts-top{
+        font-size: 24px;
+    }
+    .contacts-top-img{
+        display: none;
+    }
+    .contacts-bottom-img{
+        height: 50px;
+        margin: 4px;
+    }
+}
+@media screen and (min-width: 375px) and (max-width: 450px){
+    .contacts {
+        padding: 1rem;
+    }
+    .contacts .contacts-top{
+        font-size: 24px;
+    }
+    .contacts-top-img{
+        height: 30px;
+        margin-top: 5px;
+    }
+    .contacts-bottom-img{
+        height: 50px;
+        margin: 4px;
+    }
+}
 @media screen and (max-width: 785px){
     .center{
         display: none;

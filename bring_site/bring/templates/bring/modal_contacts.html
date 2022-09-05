@@ -1,0 +1,34 @@
+{% load static %}
+<div class="modal fade" id="contacts-ajax" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Контакти</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="contacts">
+        <div class="contacts-top">
+          <a href="#"><img src="{% static 'bring/img/kyivstar_logo.png' %}" class="contacts-top-img"></a>
+          <a class="href-contacts" href="#">+38(012)345-67-89</a>
+          <a href="#"><img src="{% static 'bring/img/vodaphone_logo.png' %}" class="contacts-top-img"></a>
+          <a class="href-contacts" href="#">+38(987)654-32-10</a>
+        </div>
+        <div class="contacts-bottom">
+          <a href="#"><img src="{% static 'bring/img/telegram.png' %}" class="contacts-bottom-img"></a>
+          <a href="#"><img src="{% static 'bring/img/viber.png' %}" class="contacts-bottom-img"></a>
+          <a href="#"><img src="{% static 'bring/img/whatsapp.png' %}" class="contacts-bottom-img"></a>
+          <a href="#"><img src="{% static 'bring/img/facebook-messenger.png' %}" class="contacts-bottom-img"></a>
+          <a href="#"><img src="{% static 'bring/img/instagram.png' %}" class="contacts-bottom-img"></a>
+        </div>
+      </div>
+
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрити</button>
+        </div>
+
+
+    </div>
+  </div>
+</div>

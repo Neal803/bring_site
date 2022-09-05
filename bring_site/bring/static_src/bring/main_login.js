@@ -1,4 +1,3 @@
-
 $(function ($) {
     $('#form_ajax_login').submit(function (e) {
         e.preventDefault()
@@ -32,7 +31,7 @@ $(function ($) {
             },
             error: function (response) {
                 if (response.status === 400) {
-                    $('.alert-danger').text(response.responseJSON.error).removeClass("d-none")
+                    $('.alert-danger-reg').text(response.responseJSON.error).removeClass("d-none")
                     console.log(response)
                 }
             }
