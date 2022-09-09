@@ -126,8 +126,30 @@ class Comment(models.Model):
         return self.comment_text
 
 
+class Question(models.Model):
+    stuff = models.ForeignKey(Stuff, on_delete=models.SET_NULL, related_name="questions", null=True, blank=True)
+    author = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name="questions")
+    question_text = models.CharField('Питання', max_length=256)
+    pub_question_date = models.DateTimeField('Дата публикации комментария', auto_now_add=True, blank=True)
+    is_new = models.BooleanField('Новое', default=True)
+    answer_by_admin = models.CharField('Ответ Администратора', max_length=256, null=True, blank=True)
+
+    class Meta:
+        verbose_name = "питання"
+        verbose_name_plural = "питання"
+
+    def __str__(self):
+        return self.question_text
+
+
 class Banner(models.Model):
+    banner_title = models.CharField('Название', max_length=64)
     banner = models.ImageField(upload_to='banners/', null=True, blank=True)
+    banner_mini = models.ImageField(upload_to='banners/', null=True, blank=True)
+    target = models.CharField(max_length=128, verbose_name='URL', default='localhost:8000/')
+    description = models.TextField('Описание', null=True)
+    priority = models.IntegerField('Приоритет выдачи', null=True, blank=True, default=5)
+    is_active = models.BooleanField('Активировано?', default=True)
 
     class Meta:
         verbose_name = "банер"

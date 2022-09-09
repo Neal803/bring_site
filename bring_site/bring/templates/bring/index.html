@@ -5,12 +5,29 @@
 
 {% block content %}
     <footer>
-        <div class="h-footer">
-            <h1 style="margin-top: 1.5%;">Доставка</h1>
-            <h2>За найкращими цінами Запоріжжя</h2>
-            <h6>Балабіне, Кушугум, Осетрівка, Малокатерінівка, Конкринівка</h6>
+
+        <div id="block-for-slider">
+        <div id="viewport">
+            <ul id="slidewrapper">
+                    {% for banner in banners %}
+                        <li class="slide"><a href="{{ banner.target }}"><img src="{{ banner.banner.url }}" title="{{ banner.description }}" class="slide-img"></a></li>
+                        <li class="slide-mini"><a href="{{ banner.target }}"><img src="{{ banner.banner_mini.url }}" title="{{ banner.description }}" class="slide-img-mini"></a></li>
+                    {% endfor %}
+            </ul>
+
+            <div id="prev-next-btns">
+                <div id="prev-btn"><img src="{% static 'bring/img/left.png' %}" class="prev-btn-img"></div>
+                <div id="next-btn"><img src="{% static 'bring/img/right.png' %}" class="next-btn-img"></div>
+            </div>
+
+            <ul id="nav-btns">
+                {% for banner in banners %}
+                    <li class="slide-nav-btn"></li>
+                {% endfor %}
+            </ul>
+
         </div>
-    
+    </div>
 
         <div class="stuffs-block">
             {% for stuff in stuffs %}
@@ -54,5 +71,6 @@
         </div>
         
     </footer>
+
 
 {% endblock %}

@@ -18,6 +18,7 @@ from django.contrib.auth.tokens import default_token_generator as token_generato
 def index(request):
     context = {
         'stuffs': Stuff.objects.filter(is_active=True).order_by('priority'),
+        'banners': Banner.objects.filter(is_active=True).order_by('priority')
     }
     return render(request, template_name="bring/index.html", context=context)
 

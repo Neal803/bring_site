@@ -24,3 +24,13 @@ class CustomUserAdmin(admin.ModelAdmin):
 @admin.register(Comment)
 class ModelComment(admin.ModelAdmin):
     list_display = ['is_new', 'stuff', 'pub_comment_date', 'rating_vote', 'comment_text', 'author']
+
+
+@admin.register(Question)
+class ModelQuestion(admin.ModelAdmin):
+    list_display = ['is_new', 'stuff', 'pub_question_date', 'question_text', 'author']
+
+
+@admin.register(Banner)
+class ModelBanner(admin.ModelAdmin):
+    list_display = ['banner_title', 'banner', 'banner_mini',  'target', 'description']
