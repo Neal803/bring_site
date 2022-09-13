@@ -1,5 +1,5 @@
 var slideNow = 1;
-var slideCount = $('#slidewrapper').children().length;
+var slideCount = $('#slidewrapper').children().length / 2;
 var slideInterval = 6000;
 var navBtnId = 0;
 var translateWidth = 0;

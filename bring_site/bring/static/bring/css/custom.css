@@ -18,7 +18,7 @@
 
 #slidewrapper {
     position: relative;
-    width: calc(100% * 4);
+    width: calc(100% * 25);
     -webkit-transition: 1s;
     -o-transition: 1s;
     transition: 1s;
@@ -33,7 +33,7 @@
 }
 
 .slide {
-    width: calc(100%/4);
+    width: calc(100%/25);
     list-style: none;
     display: inline;
     float: left;
@@ -92,7 +92,7 @@
     background-color: white;
     border-radius: 50%;
     border: solid 2px black;
-    margin: 3px;
+    margin: 2px;
 }
 
 .slide-nav-btn:hover {
@@ -490,7 +490,18 @@ footer {
     width: 100%;
     border-radius: 8px;
 }
+.action{
+    position: relative;
+}
 
+.action .action-img {
+    width: 35px;
+    height: 35px;
+    position: absolute;
+    left: 0px;
+    margin: 2%;
+    padding: 1%;
+}
 .favorite{
     position: relative;
 }
@@ -600,7 +611,7 @@ footer {
     }
     .slide-mini {
         display: block;
-        width: calc(100%/4);
+        width: calc(100%/25);
         list-style: none;
         display: inline;
         float: left;

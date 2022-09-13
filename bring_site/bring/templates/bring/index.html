@@ -34,8 +34,14 @@
                 <div class="stuff">
 
                     {% if user.is_authenticated %}
+
+                        {% if stuff.is_action %}
+                    <div class="action"><a href="{{ stuff.get_absolute_url }}"><img src="{% static 'bring/img/action.png' %}" class="action-img"></a></div>
+                        {% endif %}
+
                         <form action="{% url 'bring:stuff-fan' stuff.id %}" method="POST" id="favorite{{ stuff.id }}">
                         {% csrf_token %}
+
                         {% if stuff in user.favs.all %}
                             <div class="favorite"><img src="{% static 'bring/img/heart-yellow.png' %}" class="favorite-img"></div>
                         {% else %}
