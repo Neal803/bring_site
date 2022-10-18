@@ -132,3 +132,32 @@ $(function ($) {
         })
     })
 })
+
+$(function ($) {
+    $('.btn-google').click(function (e) {
+        var left = (screen.width/2)-(700/2);
+        var top = (screen.height/2)-(700/2);
+        newWin = window.open('http://192.168.0.111:8000/login/google-oauth2/', 'social', 'menubar=no, width=700, height=700, left='+left+', top='+top+'');
+        window.onmousemove = function(){
+            window.location.reload();
+        };
+        console.log(document.getElementById('menu__btn__area'))
+        var elem = document.getElementById('menu__btn__area')
+//        var newWin = window.open('http://localhost:8000/login/google-oauth2/', 'social', 'menubar=no, width=600, height=600');
+//        console.log('click')  onmousemove
+//        console.log(window.location.href)
+//        console.log(newWin.location.href)
+//        console.log(newWin)
+//        setTimeout(() => {console.log(newWin.location.href);}, 6000);
+
+//        var check = function(){
+//            if(condition){
+//                // run when condition is met
+//            }
+//            else {
+//                setTimeout(check, 1000); // check again in a second
+//            }
+//        }
+//        check();
+    })
+})

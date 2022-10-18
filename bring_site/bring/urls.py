@@ -1,6 +1,6 @@
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
     PasswordResetCompleteView
-from django.urls import path
+from django.urls import path, include
 from django.views.generic import TemplateView
 
 from . import views
@@ -27,6 +27,7 @@ urlpatterns = [
 
     path('login_ajax/', LoginAjaxView.as_view(), name='login-ajax'),
     path('registration_ajax/', RegistrationAjaxView.as_view(), name='registration-ajax'),
+
     path('contacts_ajax/', TemplateView.as_view(template_name='bring/modal-contacts.html'), name='contacts-ajax'),
 
     path('password_reset', PasswordResetView.as_view(template_name='bring/password_reset_form.html'), name='password_reset'),
@@ -40,4 +41,5 @@ urlpatterns = [
     path('add/stuff/<slug:slug>/comment/', views.add_stuff_comment, name='add-comment'),
 
     path('stuff/<int:stuff_id>/fav', views.fav_stuff, name='stuff-fan'),
+    path('test/', TemplateView.as_view(template_name='bring/test.html'), name='test'),
 ]

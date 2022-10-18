@@ -19,6 +19,7 @@
                     <label class="menu__btn" for="menu__toggle">
                       <span></span>
                     </label>
+                    <label class="menu__btn__area" id="menu__btn__area" for="menu__toggle"></label>
 
                     <ul class="menu__box">
                             <div class="auth-reg">
@@ -36,7 +37,7 @@
                                     <img src="{% static 'bring/img/user-online.png' %}" class="account"></a>
                                 </div>
                                 <div class="auth-reg-right"><a class="href-auth" href="{% url 'bring:user-page' %}">
-                                    <div class="user-name">{{ user.first_name }}</div>
+                                    <div class="user-name">{{ user.get_name }}</div>
                                     <div class="user-email">{{ user.email }}</div></a>
                                 </div>
                                 {% endif %}

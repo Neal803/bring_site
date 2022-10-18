@@ -89,7 +89,7 @@ class RegistrationAjaxForm(UserCreationForm):
             "class": "form-control",
         }),
     )
-    first_name = forms.CharField(
+    name = forms.CharField(
         label=_("Ім'я"),
         max_length=254,
         widget=forms.TextInput(attrs={
@@ -119,7 +119,7 @@ class RegistrationAjaxForm(UserCreationForm):
 
     class Meta:
         model = CustomUser
-        fields = ('email_reg', 'first_name', 'communication', 'password1', 'password2')
+        fields = ('email_reg', 'name', 'communication', 'password1', 'password2')
 
     def __init__(self, *args, **kwargs):
         super(RegistrationAjaxForm, self).__init__(*args, **kwargs)

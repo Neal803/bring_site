@@ -66,7 +66,6 @@ def add_stuff_comment(request, slug):
         author = request.user
         new_comment = Comment(author=author, comment_text=comment_text, stuff=stuff, rating_vote=rating_vote)
         new_comment.save()
-        # return redirect(request.META.get('HTTP_REFERER'))
     return redirect(request.META.get('HTTP_REFERER'))
 
 
@@ -153,12 +152,12 @@ class RegistrationAjaxView(View):
 
     def post(self, request):
         email = request.POST.get('email_reg')
-        first_name = request.POST.get('first_name')
+        name = request.POST.get('name')
         communication = request.POST.get('communication')
         password1 = request.POST.get('password1')
         password2 = request.POST.get('password2')
-        username = f'user_{"_".join(first_name.split())}'
-        if email and first_name and password1 and password2:
+        username = email.split(sep='@')[0]
+        if email and name and password1 and password2:
             try:
                 if CustomUser.objects.get(email=email):
                     return JsonResponse(data={'error': 'Пользователь уже существует'}, status=400)
@@ -170,7 +169,7 @@ class RegistrationAjaxView(View):
                 return JsonResponse(data={'error': 'Пароль не должен состоять только из цифр'}, status=400)
             if password1 and password1 != password2:
                 return JsonResponse(data={'error': 'Пароль должен быть одиннаковым'}, status=400)
-            new_user = CustomUser(username=username, email=email, first_name=first_name, communication=communication)
+            new_user = CustomUser(username=username, email=email, name=name, communication=communication)
             new_user.set_password(password1)
             new_user.save()
             user = authenticate(email=email, password=password1)
@@ -184,7 +183,9 @@ class RegistrationAjaxView(View):
 
 def logout_user(request):
     logout(request)
-    return HttpResponseRedirect(reverse('bring:index'))
+    if 'user' in request.META.get('HTTP_REFERER'):
+        return HttpResponseRedirect(reverse('bring:index'))
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 class Register(View):

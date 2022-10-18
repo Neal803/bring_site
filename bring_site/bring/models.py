@@ -94,7 +94,7 @@ class CustomUser(AbstractUser):
     email = models.EmailField(_("email address"), unique=True)
     username = models.CharField(_("username"), max_length=150, unique=False)
     communication = models.CharField('Способ связи', max_length=256, blank=True, unique=False)
-    first_name = models.CharField(_("First Name"), max_length=150, unique=False)
+    name = models.CharField(_("Name"), max_length=150, unique=False, null=True, blank=True)
     email_verify = models.BooleanField(default=False)
     USERNAME_FIELD = "email"
     REQUIRED_FIELDS = ["username"]
@@ -107,6 +107,14 @@ class CustomUser(AbstractUser):
         if self.communication == '' or self.communication is None:
             self.communication = 'Не вказано'
         super(CustomUser, self).save(*args, **kwargs)
+
+    def get_name(self):
+        if self.first_name and self.name is None:
+            return self.first_name
+        elif self.name:
+            return self.name
+        else:
+            return None
 
 
 class Comment(models.Model):
